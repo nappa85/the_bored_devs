@@ -365,7 +365,7 @@ Like arrays, if you need a string that can grow in size you're looking for a `St
 Unlike arrays, the base type `str` isn't usable alone, you'll always see that as a reference `&str`.
 We'll talk extensively about that in another lesson.
 
-## Homeworks
+### Homeworks
 
 Write a function for every possible operation between two u8. E.g.:
 

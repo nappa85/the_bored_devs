@@ -68,20 +68,20 @@ Date::is_bc(&a)
 
 There is no difference, both styles are accepted.
 
-## Homeworks
+#### Homeworks
 
 Write a struct with 2 fields of type `u8`, implement for it a constructor and then a method to sum, substract, multiply and divide the two numbers, printing the results.<br/>
 Then create another struct that does the same with 3 fields.
 
 ### Traits
 
-If a Struct is a logical groups of variable and associated functions, a trait is a behaviour, composed by associated functions and associated types.
+If a Struct is a logical groups of variables and associated functions, a trait is a behaviour, composed by associated functions and associated types.
 
-In Rust traits define everything, every behaviour is decided by a trait implementation: formatting, addition, conversion, etc...
+In Rust every behaviour is defined by a trait implementation: formatting, addition, conversion, etc...
 
 #### Example
 
-Lt's say we are coding a virtual world, we have humans, dogs, birds and butterflies.
+Let's say we are coding a virtual world, we have humans, dogs, birds and butterflies.
 
 ```rust
 struct Human {}
@@ -125,7 +125,7 @@ impl Walk for Butterfly {
 }
 ```
 
-Let's say we want to do the same with the flying behaviour, whoever implements the `Fly` trait is able to fly, and we only need to know with how many wings does the implementor flyes.
+Let's say we want to do the same with the flying behaviour, whoever implements the `Fly` trait is able to fly, and we only need to know with how many wings does the implementor flies.
 
 ```rust
 trait Fly {
@@ -149,7 +149,7 @@ As you can see, `Human` and `Dog` doesn't implement the `Fly` trait.
 
 #### Default implementations
 
-A trait associated functions may have a default implementation, that may be overridden in trait implementations for a type.
+Trait associated functions may have a default implementation, that may be overridden in trait implementations for a type.
 
 ```rust
 trait Example {
@@ -185,11 +185,11 @@ impl Example for u8 {}
 impl Example for i8 {}
 ```
 
-In this example we require on the [`Display`](https://doc.rust-lang.org/std/fmt/trait.Display.html) trait from Rust's standard library (`std`), that is the same trait that the `{}` formatting placeholder relies on. Since `Display` is already implemented for every number type, we can entirely rely on default implementation.
+In this example we require the [`Display`](https://doc.rust-lang.org/std/fmt/trait.Display.html) trait from Rust's standard library (`std`), that is the same trait that the `{}` formatting placeholder relies on. Since `Display` is already implemented for every number type, we can entirely rely on default implementation.
 
 #### Associated Types
 
-An associated type is needed where some part of a trait is variable. An associated type may have prerequisites, just like traits itself.
+An associated type is needed when some parts of a trait are variable. An associated type may have prerequisites, just like traits itself.
 
 ```rust
 trait Operation {
@@ -221,7 +221,27 @@ impl Subtraction for Example {
 
 That `from` method we are using since Lesson 1 comes from a trait too, the [`From`](https://doc.rust-lang.org/std/convert/trait.From.html) trait from std.
 
-## Homeworks
+#### Clone and Copy traits
+
+`Clone` is a trait that controls the ability to duplicate a value. Cloning means recursively copy everything, probably at this point it won't ring a bell, but for now it's enough for you to know that there are types that can't be simply copied. `Clone` covers those types.
+
+`Copy` is an empty trait, also called `marker`, that can be applied only to types that can bel safely copied.
+
+For example, every base number type is `Copy`. If a type is `Copy`, it's instance can survive consumption because it will be copied as needed.
+
+Copy and Clone can be implemented with `derive macros`
+
+```rust
+#[derive(Clone, Copy)]
+struct Example {
+    a: u8,
+    b: u8,
+}
+```
+
+Also read only references are `Copy`.
+
+#### Homeworks
 
 Create an `Operations` trait that has a method for every operation between numbers, then convert structs from previous homework about structs into using the new trait.
 
@@ -349,6 +369,12 @@ fn add<T: Add>(a: T, b: T) -> T::Output {
 
 Also functions associated to structs and traits can have generics.
 
-## Homeworks
+#### Drop
+
+Drop happens when a variable exits it's scope, and is destroyed. Standard drop frees the memory, but there are specials cases when other operations are needed. In those cases the [`Drop`](https://doc.rust-lang.org/std/ops/trait.Drop.html) trait can be implemented.
+
+[`drop`](https://doc.rust-lang.org/std/mem/fn.drop.html) is also the name of a function that ensures the variable is destroyed at will instead of when exiting the scope. This function is really peculiar, since it's an empty function that has a generic `T` without constraints. It leverages Rust's ownership system, simply taking ownership of anything and making it immediately exit the scope. Obviously calling `drop` on something that is `Copy` won't have effects, since, if needed, you'll be dropping a copy of the value.
+
+#### Homeworks
 
 Combine the previous homeworks from this lesson, create 2 structs with a generic, one with 2 fields, one with 3 fields, and implement the Operations trait for them.

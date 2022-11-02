@@ -294,7 +294,7 @@ where
 }
 ```
 
-What are we doing here? We are requiring that the generic T of our struct implements all the 5 listed traits, this avoids building the struct with an unwanted type. Then we implement struct methods for every T with the same constraints. The output of every method is the associated type of involved trait, since all traits have an Output associate type we need to disambiguate which trait we are using every time. Again, this is because those behaviours are controlled by traits, and we can leverage them on out advantage.
+What are we doing here? We are requiring that the generic T of our struct implements all the 5 listed traits, this avoids building the struct with an unwanted type. Then we implement struct methods for every T with the same constraints. The output of every method is the associated type of involved trait, since all traits have an Output associated type we need to disambiguate which trait we are using every time. Again, this is because those behaviours are controlled by traits, and we can leverage them on our advantage.
 
 We could have written the same concept another way:
 
@@ -340,7 +340,7 @@ impl<T: Rem> Example<T> {
 Difference is quite subtle, here we can build the struct with any T, but methods will be available only if T implements the involved trait, and we don't need to disambiguate since we are using one trait at once.<br/>
 Also, you can see a more compat constraints definition, that, on the other side, can become quite messy with many constraints.
 
-Generics can work also in functions
+Generics can work also on functions
 
 ```rust
 fn print<T>(subject: T)
@@ -359,7 +359,7 @@ fn print(subject: impl std::fmt::Display) {
 }
 ```
 
-What's the difference? The `impl trait` way is surely more human readable, but is not usable when you need a slightly more complex scenario. For example, this isn't writable on that form
+What's the difference? The `impl trait` way is surely more human readable, but it's not usable when you need a slightly more complex scenario. For example, this isn't writable on that form
 
 ```rust
 fn add<T: Add>(a: T, b: T) -> T::Output {
@@ -369,9 +369,45 @@ fn add<T: Add>(a: T, b: T) -> T::Output {
 
 Also functions associated to structs and traits can have generics.
 
+#### Generic implementation
+
+Generics can be used also to implement a trait for anything that respects a constraint. Let's take for example this code
+
+```rust
+#[derive(Debug)]
+struct Example1<T> {
+    a: T,
+}
+
+#[derive(Debug)]
+struct Example2<T> {
+    a: T,
+    b: T,
+}
+
+#[derive(Debug)]
+struct Example3<T> {
+    a: T,
+    b: T,
+    c: T,
+}
+
+trait MyTrait: std::fmt::Debug {
+    fn example(&self) {
+        println!("debug value is {:?}", self);
+    }
+}
+
+impl<T: std::fmt::Debug> MyTrait for T {}
+```
+
+In this code we are declaring 3 different structs, automatically deriving `Debug` trait for them using a derive macro, and a trait MyTrait that requires the `Debug` trait, then, with a single operation, we are implementig MyTrait for everything implements `Debug`, not only our structs, but really everything.
+
+Obviously this has limitations, to avoid messing up. To be able to implement a trait on something, at least one between the trait and the target must have been created in the current project.
+
 #### Drop
 
-Drop happens when a variable exits it's scope, and is destroyed. Standard drop frees the memory, but there are specials cases when other operations are needed. In those cases the [`Drop`](https://doc.rust-lang.org/std/ops/trait.Drop.html) trait can be implemented.
+Drop happens when a variable exits it's scope, and is destroyed. Standard drop simply frees the memory, but there are specials cases when other operations are needed. In those cases the [`Drop`](https://doc.rust-lang.org/std/ops/trait.Drop.html) trait can be implemented.
 
 [`drop`](https://doc.rust-lang.org/std/mem/fn.drop.html) is also the name of a function that ensures the variable is destroyed at will instead of when exiting the scope. This function is really peculiar, since it's an empty function that has a generic `T` without constraints. It leverages Rust's ownership system, simply taking ownership of anything and making it immediately exit the scope. Obviously calling `drop` on something that is `Copy` won't have effects, since, if needed, you'll be dropping a copy of the value.
 

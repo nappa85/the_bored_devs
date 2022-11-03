@@ -282,6 +282,40 @@ let b = i8::try_from(a);// this works because it's a fallible operation
 
 For now, take that syntax as it is, we'll see in next lesson what does that means.
 
+### Assign numeric operations
+
+Assign numeric operations are used to edit a variable basing the operation on it's current value.
+
+#### Sum
+
+```rust
+a += 1;
+```
+
+#### Subtraction
+
+```rust
+a -= 1;
+```
+
+#### Multiplication
+
+```rust
+a *= 2;
+```
+
+#### Division
+
+```rust
+a /= 2;
+```
+
+#### Remainder
+
+```rust
+a %= 2;
+```
+
 ### Functions
 
 Functions are building blocks of the language, you can see a function like a block of reusable code. The signature of a function is a contract both on the outside and on the inside of the function. That means that who's calling the function can trust the signature and the body of the function must respect the signature, not the other way around.

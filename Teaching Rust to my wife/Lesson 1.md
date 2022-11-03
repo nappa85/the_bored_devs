@@ -5,9 +5,28 @@ My wife knows nothing about development, so it's the perfect test subject for a 
 
 ## Lesson 1
 
+### Comments
+
+To add a comment you can use `//`, the compiler will ignore anything after that on the same line
+
+```rust
+// this is a comment
+```
+
+To write multiline comments, you can start with `/*` and and it with `*/`
+
+```rust
+/* this
+is a multiline
+comment */
+```
+
 ### Data types
 
 Rust is strongly typed, that means that it needs to know the exact type of everyting. Also Rust is smart enough to guess most of the types of your variables.
+
+_What do you mean by "it's smart enough"?_<br/>
+Wait a moment, we'll see later
 
 #### Numbers
 
@@ -15,7 +34,7 @@ Numbers, like in all programming languages, divides in two main families:
 * Integers, aka natural numbers
 * Floating points, aka real numbers
 
-Hint: You can put `_` everywhere inside a number to make it more readable, and you can put the type at the end of the number to force it.
+Hint: You can put `_` everywhere inside a number to make it more readable.
 
 ```rust
 1000000
@@ -31,16 +50,22 @@ Integer itself divides into two families:
 
 Every Integer type is named over it's size in bits
 
+_What's a bit?_
+Computers works in binary, everything is made up of bits, a bit can only be 0 or 1 (that's wht it's called binary, only two possible values), 8bits are 1 Byte, you commonly use Bytes when talking about file sizes.
+
 E.g. `u8` is an unsigned integer with size 8bit, that means it's value goes from 0 to 255<br/>
-Why 255? Well, bits have only 2 possible values: 0 and 1. With 8 bits you can have 2 elevated at the eighth power possible values, that means 256 values, but one of those is 0, hence 255 is the maximum value.
+_Why 255?_<br/>
+Well, with 8 bits you can have 2 elevated at the eighth power possible values, that means 256 values, but one of those is 0, hence 255 is the maximum value.
 
 E.g. `i8` is a signed integer with size 8bit, that means it's value goes from -128 to 127<br/>
 _Wait a moment, why `u8` goes up to 255 and `i8` only to `127`?_<br/>
 That's because the sign takes away 1 bit, and only 7 bits are left for the value<br/>
-_Ok, and why the minimum value is -128 and not -127?<br/>
+_Ok, and why the minimum value is -128 and not -127?_<br/>
 Well, you don't count 0 two times, don't you?
 
 Rust comes with integers of 8bits, 16bits, 32bits and 64bits.
+
+You can put the type at the end of the number to force it.
 
 ```rust
 10
@@ -68,9 +93,12 @@ Floating point numbers are written with a `.` dividing units from decimals
 
 #### Characters
 
-`char` type represents a single character, being it a letter, number, symbol or even emoji, in any existing alphabet. It's size can vary from 1 to 4 bytes.
-_What does that mean "from 1 to 4 bytes"?_
+`char` type represents a single character, being it a letter, number, symbol or even emoji, in any existing alphabet. It's size can vary from 1 to 4 bytes.<br/>
+_What does that mean "from 1 to 4 bytes"?_<br/>
 Well, we need to open a little parenthesis here. Once upon a time, almost every nation had it's own character encoding. Americans had the famous ASCII, single byte because 256 characters were enough for them, nations using latin alphabets has variations of ASCII, remaining single byte, including, for example, accented letters. Nations using different alphabet, for example Japan, had completely different characters encoding. Communicating between areas with different character encodings was difficult, you had to use conversion tables, that was an error prone operation. Luckily things have evolved since then, and now we have a common character encoding called UTF-8. AS you can imagine, to contain every single possible character from so many alphabets, 256 characters aren't enough. UTF-8 is ASCII compatible, so ASCII characters are single byte.
+
+_If 256 characters aren't enough, how many are there?_
+Stating [Wikipedia](https://en.wikipedia.org/wiki/UTF-8) there are 1112064 characters in UTF-8
 
 Chars are represented surrounded by single quotes, e.g.:
 ```rust
@@ -85,6 +113,9 @@ Arrays are sized list of values of the same type. Arrays can't be expanded or sh
 [1, 2, 3, 4]// this has type [u8; 4]
 ```
 
+_Can I have a real life example?_<br/>
+A box of crayons can be seen as an array, they are all of the same type, a crayon, but different values/colors. The box is sized, like a 24 crayons box, with the difference that Rust won't allow empty space in the box if you lose a crayon.
+
 #### Tuples
 
 Tuples are set of values of any type. Like arrays, tuples can't be expanded or shrinked.
@@ -93,11 +124,17 @@ Tuples are set of values of any type. Like arrays, tuples can't be expanded or s
 (1, true, 'a')// this has type (u8, bool, char)
 ```
 
+_Can I have a real life example?_<br/>
+The case you had at school is like a tuple, inside there are elements of different types: a pen, an eraser, a ruler, etc...
+
 ### Basic numeric operations
 
 Basic numeric operations are sum, subtraction, multiplication, division and modulo.
 
 Keep in mind that, on a standard situation, all operations can be performed only on values of the same type and will return another value of the same type.
+
+_It's the famous "you can't add oranges and apples"?<br/>
+Well, kind of, but later we'll see how to turn oranges into apples.
 
 #### Sum
 
@@ -123,7 +160,7 @@ Keep in mind that, on a standard situation, all operations can be performed only
 1 / 2
 ```
 
-#### Modulo
+#### Remainder
 
 ```rust
 1 % 2
@@ -131,7 +168,7 @@ Keep in mind that, on a standard situation, all operations can be performed only
 
 ### Comparison operations
 
-Comparison operations return a `bool` value.
+Comparison operations can only be `true` or `false`, hence it returns a `bool` value.
 
 #### Equals
 
@@ -163,6 +200,30 @@ Comparison operations return a `bool` value.
 1 >= 2
 ```
 
+### Logical operations
+
+Logical operations can be applied between two `bool` values, and returns a `bool` value itself.
+
+#### And
+
+Written `&&`, returns `true` only when both values are `true`.
+
+```rust
+let a = 1:
+let b = 2;
+a == 1 && b == 2
+```
+
+#### Or
+
+Written `||`, returns `true` when at least one values is `true`.
+
+```rust
+let a = 1:
+let b = 2;
+a == 2 || b == 2
+```
+
 ### Declaring a variable
 
 To declare a new variable you need to use the `let` keyword.
@@ -170,6 +231,14 @@ To declare a new variable you need to use the `let` keyword.
 ```rust
 let a = 1;
 let b = a + 2;
+```
+
+Here we haven't declared the type of our variables, the compiler only know they are some kind on integer and will try it's best to make it work with the rest of the code. If unsure, he'll output an error, pointing this line of code, asking to disambiguate the type.
+
+If you want to declare also the type of your variable, the syntax is
+
+```rust
+let a: u8 = 1;
 ```
 
 #### Shadowing
@@ -180,6 +249,12 @@ Shadowing is the act of declaring another variable with the same name of an exis
 let a = 1;
 let a = 2;
 ```
+
+_Isn't it futile?_
+It could seem, but combined with other things it becomes quite handy, we'll see in other lessons.
+
+_Can I undo the shadowing?_
+Yes, but we'll see it later .
 
 #### Type conversions
 
@@ -192,54 +267,85 @@ let a: u8 = 255;
 let b = a as i8;
 ```
 
-Remember that i8 maximum value is 127? So what will the value of `b` be? You just found out why unchecked conversions aren't a best pratice.
+Remember that i8 maximum value is 127? So what will the value of `b` be?<br/>
+Well, the `as` operator will keep the binary value while changing the type. `255_u8` binary value is `11111111`, that in an i8 means `-1`.<br/>
+You just found out why unchecked conversions aren't a best pratice.
 
 ##### Checked conversions
 
 ```rust
 let a: u8 = 255;
-let b = i8::from(a);// this is not possible, you'll get an error
+let b = i8::from(a);// this is not possible, you'll get an compile error, because u8 can't be safely converted to i8
 let b = i16::from(a);// this works because i16 can manage u8 max value
 let b = i8::try_from(a);// this works because it's a fallible operation
 ```
 
-For now, thake that syntax as it is, we'll see in next lesson what does that means.
-
-### Comments
-
-To add a comment you can use `//`, the compiler will ignore anything after that on the same line
-
-```rust
-let a = 1;// this is a comment
-```
-
-To write multiline comments, you can start with `/*` and and it with `*/`
-
-```rust
-let a = 1;/* this
-is a multiline
-comment */
-```
+For now, take that syntax as it is, we'll see in next lesson what does that means.
 
 ### Functions
 
 Functions are building blocks of the language, you can see a function like a block of reusable code. The signature of a function is a contract both on the outside and on the inside of the function. That means that who's calling the function can trust the signature and the body of the function must respect the signature, not the other way around.
 
-A function is marked with `fn`, has any number of parameters, every parameter with it's type, returns a type, if omitted returns `()` (void), and is followed by a code block
+A function is marked with `fn`, has a name, has any number of parameters, every parameter with it's type, returns a type, if omitted returns `()` (void), and is followed by a code block.
 
 ```rust
-fn sum(parameter1: u8, parameter2: u8) -> u8 {
-    return parameter1 + parameter2;
+fn function_without_parameters_that_returns_void() {
+    println!("Hello");
 }
 
-fn sub(parameter1: u8, parameter2: u8) -> u8 {
+fn function_with_a_signle_u8_parameter_that_explicitly_returns_u8(parameter: u8) -> u8 {
+    println!("parameter value is {parameter}");
+    return parameter;
+}
+
+fn function_with_two_parameters_that_implicitly_returns_u8(parameter1: u8, parameter2: u8) -> u8 {
     parameter1 - parameter2
 }
 ```
 
-Every instruction must end with `;`, the last instruction of a block can omit the `;`, that's implicitly the return of the block.
+Every instruction must end with `;`, the last instruction can omit the `;`, that's implicitly the return value.
 
 In an executable, the `main` function is the entrypoint.
+
+_What's an entrypoint?_<br/>
+That's the code executed when your application starts, and when it returns the application exits.
+
+#### Code blocks
+
+The body of a function is a code block, but code blocks are everywhere you put code between braces.
+
+```rust
+let a = if b > 0 {
+    1
+} else {
+    2
+};
+```
+
+As you can see, also the two bodies of an `if/else` are code blocks, and they returns the value from last operation if not ending by `;`.
+
+```rust
+fn always_returns_two(b: u8) -> u8 {
+    let a = if b > 0 {
+        1
+    } else {
+        return 2;
+    };
+    a + 1
+}
+```
+
+This function, like the name suggests, always returns 2, because the `return` operation values for the function and not for the code block.
+
+```rust
+let a = 1;
+{
+    let a = 2;
+}
+println!("{a}");//this will print 1
+```
+
+Here the shadowing automatically ends at the end of the code block.
 
 ### Conditions
 
@@ -305,9 +411,10 @@ In Rust those are called references.
 
 ```rust
 let a = 1;
-let b = &a;// now b is a reference to a
+do_something(&a);// we are passing a reference to a to the function that requires a reference to u8
 
-fn do_something(c: &u8) {
+
+fn do_something(b: &u8) {
     // ...
 }
 ```
@@ -320,7 +427,7 @@ A reference to an array is called a slice, and loses the size from it's type
 
 ```rust
 let a: [u8; 4] = [1, 2, 3, 4];
-do_something(&a);
+do_something(&a);// we are passing a reference to a to the function that requires a slice of u8
 
 fn do_something(a: &[u8]) {
     // ...

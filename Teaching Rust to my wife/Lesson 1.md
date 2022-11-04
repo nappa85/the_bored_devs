@@ -133,7 +133,7 @@ Basic numeric operations are sum, subtraction, multiplication, division and modu
 
 Keep in mind that, on a standard situation, all operations can be performed only on values of the same type and will return another value of the same type.
 
-_It's the famous "you can't add oranges and apples"?<br/>
+_It's the famous "you can't add oranges and apples"?_<br/>
 Well, kind of, but later we'll see how to turn oranges into apples.
 
 #### Sum

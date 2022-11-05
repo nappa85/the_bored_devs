@@ -332,6 +332,29 @@ if a < 10 {
 }
 ```
 
+### Printing
+
+To output a string from your code you can use the `println!` macro.
+
+```rust
+println!("Hello world");
+```
+
+To print a value, you can use the `{}` placeholder
+
+```rust
+println!("The value of a is {}", a);
+```
+
+`println!` can capture variables from the environment, e.g. those two lines of code does the same
+
+```rust
+println!("{}", a);
+println!("{a}");
+```
+
+We'll talk extensively about macros in another lesson, for now keep in mind macros aren't magical, they'll expand to code you could write yourself, but they hide complexity and help reduce code repetition.
+
 ### Functions
 
 Functions are building blocks of the language, you can see a function like a block of reusable code. The signature of a function is a contract both on the outside and on the inside of the function. That means that who's calling the function can trust the signature and the body of the function must respect the signature, not the other way around.
@@ -391,34 +414,12 @@ This function, like the name suggests, always returns 2, because the `return` op
 let a = 1;
 {
     let a = 2;
+    println!("{a}");//this will print 2
 }
 println!("{a}");//this will print 1
 ```
 
 Here the shadowing automatically ends at the end of the code block.
-
-### Printing
-
-To output a string from your code you can use the `println!` macro.
-
-```rust
-println!("Hello world");
-```
-
-To print a value, you can use the `{}` placeholder
-
-```rust
-println!("The value of a is {}", a);
-```
-
-`println!` can capture variables from the environment, e.g. those two lines of code does the same
-
-```rust
-println!("{}", a);
-println!("{a}");
-```
-
-We'll talk extensively about macros in another lesson, for now keep in mind macros aren't magical, they'll expand to code you could write yourself, but they hide complexity and help reduce code repetition.
 
 #### Debug Printing
 

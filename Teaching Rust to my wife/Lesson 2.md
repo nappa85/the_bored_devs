@@ -9,9 +9,13 @@ My wife knows nothing about development, so it's the perfect test subject for a 
 
 Structs are like logical groups of variable and associated functions. Every function associated to the struct may, or may not, access to struct instance, that's called `self` (lowercase). For example, a variable is an instance of it's type, so you can think of a function accessing to struct instance like a function that access to the variable itself, and that's called a `method`. An associated function that doesn't access to struct instance, but returns a struct instance, the same type it's associated to, shortly `Self` (it's a type, so the first letter is uppercase), is ofter called a `constructor`.
 
+_Can you explain it simplier?_<br/>
+When an associated function needs to access struct's data, it's a method and will have `self` as first parameter.<br/>
+Else, it's an associated function. If the associated function returns an instance of the struct itself, it's a `constructor`.
+
 #### Example
 
-Let's take for example a date. A date is composed by a day, that goes from 1 to 31, so an `u8` will be enough, a month, that goes from 1 to 12, so another `u8` will be enough, and an year, that can goes from... well, wikipedia says recorder history starts arouth the 4th millennium BC, so an `i16` should be enough.
+Let's take for example a date. A date is composed by a day, that goes from 1 to 31, so an `u8` will be enough, a month, that goes from 1 to 12, so another `u8` will be enough, and an year, that can goes from... well, wikipedia says recorder history starts around the 4th millennium BC, so an `i16` should be enough.
 
 ```rust
 struct Date {
@@ -225,9 +229,9 @@ That `from` method we are using since Lesson 1 comes from a trait too, the [`Fro
 
 `Clone` is a trait that controls the ability to duplicate a value. Cloning means recursively copy everything, probably at this point it won't ring a bell, but for now it's enough for you to know that there are types that can't be simply copied. `Clone` covers those types.
 
-`Copy` is an empty trait, also called `marker`, that can be applied only to types that can bel safely copied.
+`Copy` is an empty trait, also called `marker`, that can be applied only to types that can bel safely copied without recursion.
 
-For example, every base number type is `Copy`. If a type is `Copy`, it's instance can survive consumption because it will be copied as needed.
+For example, every base number type is `Copy`. A struct composed only by `Copy` types can be `Copy` itself. If a type is `Copy`, it's instance can survive consumption because it will be copied as needed.
 
 Copy and Clone can be implemented with `derive macros`
 
@@ -294,7 +298,8 @@ where
 }
 ```
 
-What are we doing here? We are requiring that the generic T of our struct implements all the 5 listed traits, this avoids building the struct with an unwanted type. Then we implement struct methods for every T with the same constraints. The output of every method is the associated type of involved trait, since all traits have an Output associated type we need to disambiguate which trait we are using every time. Again, this is because those behaviours are controlled by traits, and we can leverage them on our advantage.
+_What are we doing here?_<br/>
+We are requiring that the generic T of our struct implements all the 5 listed traits, this avoids building the struct with an unwanted type. Then we implement struct methods for every T with the same constraints. The output of every method is the associated type of involved trait, since all traits have an Output associated type we need to disambiguate which trait we are using every time. Again, this is because those behaviours are controlled by traits, and we can leverage them on our advantage.
 
 We could have written the same concept another way:
 
@@ -337,6 +342,7 @@ impl<T: Rem> Example<T> {
 }
 ```
 
+_What's the difference?_<br/>
 Difference is quite subtle, here we can build the struct with any T, but methods will be available only if T implements the involved trait, and we don't need to disambiguate since we are using one trait at once.<br/>
 Also, you can see a more compat constraints definition, that, on the other side, can become quite messy with many constraints.
 
@@ -409,7 +415,48 @@ Obviously this has limitations, to avoid messing up. To be able to implement a t
 
 Drop happens when a variable exits it's scope, and is destroyed. Standard drop simply frees the memory, but there are specials cases when other operations are needed. In those cases the [`Drop`](https://doc.rust-lang.org/std/ops/trait.Drop.html) trait can be implemented.
 
+```rust
+struct Example {
+    alarm: bool,
+}
+
+impl Example {
+    fn new() -> Self {
+        Example {
+            alarm: true,
+        }
+    }
+    fn dismiss(mut self) {
+        self.alarm = false;
+    }
+}
+
+impl Drop for Example {
+    fn drop(&mut self) {
+        if self.alarm {
+            println!("The alarm is still active");
+        }
+    }
+}
+
+fn main() {
+    let a = Example::new();
+}
+```
+
+The code in this example will print "The alarm is still active", because variable a is dropped when exits the scope and dismiss haven't been called.
+
 [`drop`](https://doc.rust-lang.org/std/mem/fn.drop.html) is also the name of a function that ensures the variable is destroyed at will instead of when exiting the scope. This function is really peculiar, since it's an empty function that has a generic `T` without constraints. It leverages Rust's ownership system, simply taking ownership of anything and making it immediately exit the scope. Obviously calling `drop` on something that is `Copy` won't have effects, since, if needed, you'll be dropping a copy of the value.
+
+```rust
+let a = 1;
+let a = 2;
+println!("{a}");//this will print 2
+drop(a);
+println!("{a}");//this will print 1
+```
+
+This is another example of shadowing, similar to the one with code blocks, but here we control the life of the second variable by explicitly calling `drop`.
 
 #### Homeworks
 

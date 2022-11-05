@@ -450,13 +450,11 @@ The code in this example will print "The alarm is still active", because variabl
 
 ```rust
 let a = 1;
-let a = 2;
-println!("{a}");//this will print 2
-drop(a);
-println!("{a}");//this will print 1
+let b = &mut a;
+println!("{a}");// this is not possible, since while a mutable reference is alive we can't use an immutable reference of the same subject
+drop(b);
+println!("{a}");// now this is possible, because the mutable reference has been dropped
 ```
-
-This is another example of shadowing, similar to the one with code blocks, but here we control the life of the second variable by explicitly calling `drop`.
 
 #### Homeworks
 

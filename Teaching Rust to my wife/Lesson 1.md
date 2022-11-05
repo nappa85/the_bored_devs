@@ -316,6 +316,22 @@ a /= 2;
 a %= 2;
 ```
 
+### Conditions
+
+Boolean conditions can be checked with the `if` operator, followed by a block, and optionally by an `else` and another block
+
+```rust
+if a > 1 {
+    // ...
+}
+
+if a < 10 {
+    // ...
+} else {
+    // ...
+}
+```
+
 ### Functions
 
 Functions are building blocks of the language, you can see a function like a block of reusable code. The signature of a function is a contract both on the outside and on the inside of the function. That means that who's calling the function can trust the signature and the body of the function must respect the signature, not the other way around.
@@ -380,22 +396,6 @@ println!("{a}");//this will print 1
 ```
 
 Here the shadowing automatically ends at the end of the code block.
-
-### Conditions
-
-Boolean conditions can be checked with the `if` operator, followed by a block, and optionally by an `else` and another block
-
-```rust
-if a > 1 {
-    // ...
-}
-
-if a < 10 {
-    // ...
-} else {
-    // ...
-}
-```
 
 ### Printing
 

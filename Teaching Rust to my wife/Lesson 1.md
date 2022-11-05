@@ -13,7 +13,7 @@ To add a comment you can use `//`, the compiler will ignore anything after that 
 // this is a comment
 ```
 
-To write multiline comments, you can start with `/*` and and it with `*/`
+To write multiline comments, you can start with `/*` and end it with `*/`
 
 ```rust
 /* this
@@ -50,7 +50,7 @@ Integer itself divides into two families:
 
 Every Integer type is named over it's size in bits
 
-_What's a bit?_
+_What's a bit?_<br/>
 Computers works in binary, everything is made up of bits, a bit can only be 0 or 1 (that's wht it's called binary, only two possible values), 8bits are 1 Byte, you commonly use Bytes when talking about file sizes.
 
 E.g. `u8` is an unsigned integer with size 8bit, that means it's value goes from 0 to 255<br/>
@@ -97,7 +97,7 @@ Floating point numbers are written with a `.` dividing units from decimals
 _What does that mean "from 1 to 4 bytes"?_<br/>
 Well, we need to open a little parenthesis here. Once upon a time, almost every nation had it's own character encoding. Americans had the famous ASCII, single byte because 256 characters were enough for them, nations using latin alphabets has variations of ASCII, remaining single byte, including, for example, accented letters. Nations using different alphabet, for example Japan, had completely different characters encoding. Communicating between areas with different character encodings was difficult, you had to use conversion tables, that was an error prone operation. Luckily things have evolved since then, and now we have a common character encoding called UTF-8. AS you can imagine, to contain every single possible character from so many alphabets, 256 characters aren't enough. UTF-8 is ASCII compatible, so ASCII characters are single byte.
 
-_If 256 characters aren't enough, how many are there?_
+_If 256 characters aren't enough, how many are there?_<br/>
 Stating [Wikipedia](https://en.wikipedia.org/wiki/UTF-8) there are 1112064 characters in UTF-8
 
 Chars are represented surrounded by single quotes, e.g.:
@@ -250,10 +250,10 @@ let a = 1;
 let a = 2;
 ```
 
-_Isn't it futile?_
+_Isn't it futile?_<br/>
 It could seem, but combined with other things it becomes quite handy, we'll see in other lessons.
 
-_Can I undo the shadowing?_
+_Can I undo the shadowing?_<br/>
 Yes, but we'll see it later .
 
 #### Type conversions

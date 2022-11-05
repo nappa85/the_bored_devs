@@ -508,7 +508,7 @@ We'll talk extensively about that in another lesson.
 
 ### Homeworks
 
-Write a function for every possible operation between two u8. E.g.:
+Write a function for every possible operation between two `u8`. E.g.:
 
 ```rust
 fn sum(parameter1: u8, parameter2: u8) -> u8 {

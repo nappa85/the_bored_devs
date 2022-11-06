@@ -95,7 +95,7 @@ Floating point numbers are written with a `.` dividing units from decimals
 
 `char` type represents a single character, being it a letter, number, symbol or even emoji, in any existing alphabet. It's size can vary from 1 to 4 bytes.<br/>
 _What does that mean "from 1 to 4 bytes"?_<br/>
-Well, we need to open a little parenthesis here. Once upon a time, almost every nation had it's own character encoding. Americans had the famous ASCII, single byte because 256 characters were enough for them, nations using latin alphabets has variations of ASCII, remaining single byte, including, for example, accented letters. Nations using different alphabet, for example Japan, had completely different characters encoding. Communicating between areas with different character encodings was difficult, you had to use conversion tables, that was an error prone operation. Luckily things have evolved since then, and now we have a common character encoding called UTF-8. AS you can imagine, to contain every single possible character from so many alphabets, 256 characters aren't enough. UTF-8 is ASCII compatible, so ASCII characters are single byte.
+Well, we need to open a little parenthesis here. Once upon a time, almost every nation had it's own character encoding. Americans had the famous ASCII, single byte because 256 characters were enough for them, nations using latin alphabets has variations of ASCII, remaining single byte, including, for example, accented letters. Nations using different alphabet, for example Japan, had completely different characters encoding. Communicating between areas with different character encodings was difficult, you had to use conversion tables, that was an error prone operation. Luckily things have evolved since then, and now we have a common character encoding called UTF-8. As you can imagine, to contain every single possible character from so many alphabets, 256 characters aren't enough. UTF-8 is ASCII compatible, so ASCII characters are single byte.
 
 _If 256 characters aren't enough, how many are there?_<br/>
 Stating [Wikipedia](https://en.wikipedia.org/wiki/UTF-8) there are 1112064 characters in UTF-8
@@ -200,30 +200,6 @@ Comparison operations can only be `true` or `false`, hence it returns a `bool` v
 1 >= 2
 ```
 
-### Logical operations
-
-Logical operations can be applied between two `bool` values, and returns a `bool` value itself.
-
-#### And
-
-Written `&&`, returns `true` only when both values are `true`.
-
-```rust
-let a = 1:
-let b = 2;
-a == 1 && b == 2
-```
-
-#### Or
-
-Written `||`, returns `true` when at least one values is `true`.
-
-```rust
-let a = 1:
-let b = 2;
-a == 2 || b == 2
-```
-
 ### Declaring a variable
 
 To declare a new variable you need to use the `let` keyword.
@@ -256,11 +232,11 @@ It could seem, but combined with other things it becomes quite handy, we'll see 
 _Can I undo the shadowing?_<br/>
 Yes, but we'll see it later .
 
-#### Type conversions
+### Type conversions
 
 There are two main ways to convert between types
 
-##### Unchecked conversions
+#### Unchecked conversions
 
 ```rust
 let a: u8 = 255;
@@ -271,7 +247,7 @@ Remember that i8 maximum value is 127? So what will the value of `b` be?<br/>
 Well, the `as` operator will keep the binary value while changing the type. `255_u8` binary value is `11111111`, that in an i8 means `-1`.<br/>
 You just found out why unchecked conversions aren't a best pratice.
 
-##### Checked conversions
+#### Checked conversions
 
 ```rust
 let a: u8 = 255;
@@ -314,6 +290,30 @@ a /= 2;
 
 ```rust
 a %= 2;
+```
+
+### Logical operations
+
+Logical operations can be applied between two `bool` values, and returns a `bool` value itself.
+
+#### And
+
+Written `&&`, returns `true` only when both values are `true`.
+
+```rust
+let a = 1:
+let b = 2;
+a == 1 && b == 2
+```
+
+#### Or
+
+Written `||`, returns `true` when at least one values is `true`.
+
+```rust
+let a = 1:
+let b = 2;
+a == 2 || b == 2
 ```
 
 ### Conditions

@@ -18,7 +18,7 @@ MD-Aggregator sources from a list of git repositories, could be GitHub or GitLab
 It needs an access token to access repo files and few other infos, depending on the platform, then once an hour it caches all repo file list.<br/>
 When cache is renewed, also template cache is renewed, this way there is nothing to wait for on user request.
 
-Template file is a mustache file an has access only to the list of folders and MarkDown files, it's up to template implementors decide what to do with it.<br/>
+Template file is a mustache file and has access only to the list of folders and MarkDown files, it's up to template implementors decide what to do with it.<br/>
 On default implementation, it is printed as an unordered list (`<UL>`) and, on page load, via javascript, it's quickly recombined as a tree.
 
 The base idea is that minor logics can be moved on client side, via javascript, to light up server work without the user noticing any slowdown.

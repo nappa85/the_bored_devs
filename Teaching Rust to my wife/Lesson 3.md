@@ -13,7 +13,7 @@ Ranges can be bounded or unbounded, the starting value is always inclusive, the 
 
 ```rust
 .. // full unbounded range
-0.. // range bounded blow
+0.. // range bounded below
 ..10 // range bounded above
 ..=10 // range bounded inclusively above
 0..10 // range bounded non inclusively

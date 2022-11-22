@@ -55,7 +55,7 @@ Computers works in binary, everything is made up of bits, a bit can only be 0 or
 
 E.g. `u8` is an unsigned integer with size 8bit, that means it's value goes from 0 to 255<br/>
 _Why 255?_<br/>
-Well, with 8 bits you can have 2 elevated at the eighth power possible values, that means 256 values, but one of those is 0, hence 255 is the maximum value.
+Well, with 8 bits you can have 2 elevated at the 8th power possible values, that means 256 values, but one of those is 0, hence 255 is the maximum value.
 
 E.g. `i8` is a signed integer with size 8bit, that means it's value goes from -128 to 127<br/>
 _Wait a moment, why `u8` goes up to 255 and `i8` only to `127`?_<br/>
@@ -129,7 +129,7 @@ The case you had at school is like a tuple, inside there are elements of differe
 
 ### Basic numeric operations
 
-Basic numeric operations are sum, subtraction, multiplication, division and modulo.
+Basic numeric operations are sum, subtraction, multiplication, division and remainder.
 
 Keep in mind that, on a standard situation, all operations can be performed only on values of the same type and will return another value of the same type.
 
@@ -230,7 +230,7 @@ _Isn't it futile?_<br/>
 It could seem, but combined with other things it becomes quite handy, we'll see in other lessons.
 
 _Can I undo the shadowing?_<br/>
-Yes, but we'll see it later .
+Only in certain circumstances, but we'll see it later.
 
 ### Type conversions
 
@@ -244,7 +244,18 @@ let b = a as i8;
 ```
 
 Remember that i8 maximum value is 127? So what will the value of `b` be?<br/>
-Well, the `as` operator will keep the binary value while changing the type. `255_u8` binary value is `11111111`, that in an i8 means `-1`.<br/>
+Well, the `as` operator will keep the binary value while changing the type. `255_u8` binary value is `11111111`, that in an i8 means `-1`.
+
+Let's have another example
+
+```rust
+let a = -1234_i16;
+let b = a as u8;
+```
+
+Now what's the value of `b`?<br/>
+Binary value of `a` is `1111101100101110`, the unchecked conversion will take only the last 8 bits, so `00101110`, that in an u8 means `46`.
+
 You just found out why unchecked conversions aren't a best pratice.
 
 #### Checked conversions
@@ -518,3 +529,5 @@ fn sum(parameter1: u8, parameter2: u8) -> u8 {
 ```
 
 Keep in mind that certain operations can violate the boundaries of the type, manage it as needed.
+
+You can find the solution [here](Lesson 1.rs).

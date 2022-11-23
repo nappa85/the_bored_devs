@@ -167,4 +167,4 @@ This code iterates over chars contained in a string, filter only uppercase chars
 
 Write a function that receives a `&str` and returns the count of non-ASCII characters.
 
-You can find the solution [here](./Lesson 3b.rs).
+You can find the solution [here](Lesson%203b.rs).

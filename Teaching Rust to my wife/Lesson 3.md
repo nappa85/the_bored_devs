@@ -143,7 +143,7 @@ do_something_with_a_closure_that_accepts_two_parameters_and_returns_a_value(|a, 
 
 Iterators are implementors of trait `Iterator`, they can be seen as sequences of data.
 
-Iterators are quite handy to manipurale data.
+Iterators are quite handy to manipulate data.
 
 ```rust
 [1, 2, 3, 4, 5, 6]

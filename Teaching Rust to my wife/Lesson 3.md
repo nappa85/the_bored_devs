@@ -77,7 +77,7 @@ for a in 0..10 {
 
 Print the numbers from 0 to 9 with every possible cycle.
 
-You can find the solution [here](Lesson 3a.rs).
+You can find the solution [here](Lesson%203a.rs).
 
 ### Closures
 

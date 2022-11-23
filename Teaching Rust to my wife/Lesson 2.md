@@ -77,7 +77,7 @@ There is no difference, both styles are accepted.
 Write a struct with 2 fields of type `u8`, implement for it a constructor and then a method to sum, substract, multiply and divide the two numbers, printing the results.<br/>
 Then create another struct that does the same with 3 fields.
 
-You can find the solution [here](Lesson 2a.rs).
+You can find the solution [here](Lesson%202a.rs).
 
 ### Traits
 
@@ -251,7 +251,7 @@ Also read only references are `Copy`.
 
 Create an `Operations` trait that has a method for every operation between numbers, then convert structs from previous homework about structs into using the new trait.
 
-You can find the solution [here](Lesson 2b.rs).
+You can find the solution [here](Lesson%202b.rs).
 
 ### Vectors and Strings
 
@@ -484,4 +484,4 @@ println!("{a}");// now this is possible, because the mutable reference has been 
 
 Combine the previous homeworks from this lesson, create 2 structs with a generic, one with 2 fields, one with 3 fields, and implement the Operations trait for them.
 
-You can find the solution [here](Lesson 2c.rs).
+You can find the solution [here](Lesson%202c.rs).

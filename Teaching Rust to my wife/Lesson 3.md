@@ -77,7 +77,7 @@ for a in 0..10 {
 
 Print the numbers from 0 to 9 with every possible cycle.
 
-You can find the solution [here](Lesson 3a.rs).
+You can find the solution [here](Lesson%203a.rs).
 
 ### Closures
 
@@ -167,4 +167,4 @@ This code iterates over chars contained in a string, filter only uppercase chars
 
 Write a function that receives a `&str` and returns the count of non-ASCII characters.
 
-You can find the solution [here](Lesson 3b.rs).
+You can find the solution [here](Lesson%203b.rs).

@@ -538,4 +538,4 @@ fn sum(parameter1: u8, parameter2: u8) -> u8 {
 
 Keep in mind that certain operations can violate the boundaries of the type, manage it as needed.
 
-You can find the solution [here](Lesson 1.rs).
+You can find the solution [here](Lesson%201.rs).

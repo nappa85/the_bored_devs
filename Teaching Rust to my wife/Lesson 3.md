@@ -20,6 +20,18 @@ Ranges can be bounded or unbounded, the starting value is always inclusive, the 
 0..=10 // range bounded inclusively
 ```
 
+_What's that? What do I use it for?_<br/>
+Ranges are really useful to espress range of values. E.g. Arrays implements the [Index](https://doc.rust-lang.org/std/ops/trait.Index.html) trait that permits accessing array element via index or via ranges.
+
+```rust
+let a = [4, 6, 1, 9, 2];
+println!("{}", &a[3]);// will print 9
+println!("{:?}", &a[0..=1]);// will print [4, 6]
+println!("{:?}", &a[..3]);// will print [4, 6, 1]
+println!("{:?}", &a[3..]);// will print [9, 2]
+println!("{:?}", &a[..]);// will print [4, 6, 1, 9, 2]
+```
+
 ### Cycles
 
 #### Control Flow
@@ -60,6 +72,12 @@ for a in 0..10 {
 
 }
 ```
+
+#### Homeworks
+
+Print the numbers from 0 to 9 with every possible cycle.
+
+You can find the solution [here](Lesson 3a.rs).
 
 ### Closures
 
@@ -109,6 +127,16 @@ where
 }
 
 do_something_with_a_closure(|| println!("hello"));
+
+fn do_something_with_a_closure_that_accepts_two_parameters_and_returns_a_value<T, F>(closure: F)
+where
+    F: Fn(T, T) -> T,
+    T: std::fmt::Display,
+{
+    println!("{}", closure(1, 2));
+}
+
+do_something_with_a_closure_that_accepts_two_parameters_and_returns_a_value(|a, b| a + b);
 ```
 
 ### Iterators
@@ -134,3 +162,9 @@ This code transforms the array in an iterator, filters the elements keeping only
 ```
 
 This code iterates over chars contained in a string, filter only uppercase chars and count them.
+
+#### Homeworks
+
+Write a function that receives a `&str` and returns the count of non-ASCII characters.
+
+You can find the solution [here](Lesson 3b.rs).

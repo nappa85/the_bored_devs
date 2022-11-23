@@ -253,6 +253,26 @@ Create an `Operations` trait that has a method for every operation between numbe
 
 You can find the solution [here](Lesson 2b.rs).
 
+### Vectors and Strings
+
+Vectors and Strings are respectively owned versions of Arrays and String slices, that allows expanding or shrinking its contents.<br/>
+They are structs, with their own methods, and implementing the trait [Deref](https://doc.rust-lang.org/std/ops/trait.Deref.html) to mimic the slice counterpart.
+
+```rust
+let mut a = Vec::new();// this creates a new, empty, zero sized Vec
+a.push(1);// push is a method of struct Vec that adds a value to the it
+a.push(7);
+a.push(5);
+
+let b = vec![1, 7, 5];// this does exactly the same using the macro vec!
+
+let mut c = String::new();
+c.push('a');// String is really similar to a Vec, you can push single char
+c.push_str("bcd");// you can even push entire strings
+
+let d = String::from("abcd");// you can create String starting from string slices
+```
+
 ### Generics
 
 Generics are a way to write code that works for a wide range of types.

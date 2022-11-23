@@ -73,6 +73,14 @@ You can put the type at the end of the number to force it.
 9_i64
 ```
 
+###### Size
+
+Sometimes the architecture your application is built for imposes limitations. An example of those limitations is the maximum native size of an information.<br/>
+Modern computers are 64bit, older computers are 32bit, even older computers are 16bit.
+
+For this kind of data, there are the `usize` and `isize` integer types, that automatically maps to the architecture size.<br/>
+Many methods, e.g. array length, returns an `usize`.
+
 ##### Floating Points
 
 Floating point numbers are always signed and are represented using an exponent and a fraction.<br/>

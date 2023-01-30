@@ -5,10 +5,6 @@ My wife knows nothing about development, so it's the perfect test subject for a 
 
 ## Lesson 3
 
-### Matches
-
-`match` is a really powerful operation
-
 ### Enums
 
 Rust's Enums are really powerful and really pervasive in the language.<br/>
@@ -49,8 +45,8 @@ Enum variants can also have associated data.
 ```rust
 enum MultipleChoice {
     None,
-    One(u8),// this variant has a type associated, the type can be any type, even a struct or another enum
-    Multiple { parameter1: u8, parameter2: u8 },// this variant is costructed like a struct herself
+    One(u8),// this variant has a type associated, the type can be any type, even a tuple, a struct or another enum
+    Multiple { parameter1: u8, parameter2: u8 },// this variant is costructed like a struct herself, with named fields
 }
 ```
 
@@ -70,7 +66,7 @@ enum OptionalU8 {
 
 This enum explicitly describes the possibility of absence of the value, and it must be explicitly checked, therefore there can't be a bug because you forgot to check if the values was null.
 
-Now, we know how generics works, and they works also on enums, so we can make that enum generic to any type, no?
+Now, we know how generics works, and they works also on enums, so we can make that enum generic to any type, right?
 
 ```rust
 enum Option<T> {
@@ -80,7 +76,7 @@ enum Option<T> {
 ```
 
 Well, we just reinvented [std::option::Option](https://doc.rust-lang.org/std/option/enum.Option.html).<br/>
-More, there is no need to do `use std::option::Option` in our projects, becase it's automatically done for us.<br/>
+More, there is no need to add `use std::option::Option` to our projects, becase it's automatically done for us.<br/>
 You don't even need to specify `Option::Some` or `Option::None` every time, you yust need to write `Some` or `None`.
 
 #### Results
@@ -88,7 +84,7 @@ You don't even need to specify `Option::Some` or `Option::None` every time, you 
 What if we can apply the same concept to failing operations?<br/>
 You may think you just need a `bool`, `true` on successful operation, `false` on error.<br/>
 Ok, what if you want to return something on successful operation?<br/>
-You may thin in other languages you can do that returning `null` on error, so translated to Rust it would be an `Option` with `Some` on success and `None` on error.<br/>
+You may think in other languages you can do that returning `null` on error, so translated to Rust it would be an `Option` with `Some` on success and `None` on error.<br/>
 Ok, but what if we want to return something also on error?<br/>
 Let's say something that describes the error, maybe there are several error types and we need to tell to the user exactly which error happened.
 
@@ -100,7 +96,101 @@ enum Result<T, E> {
 ```
 
 Sounds quite exhaustive, right?<br/>
-We have an `Ok` variant with an associated type, and an `Err` variant with a different associated type.<br/>
+We have an `Ok` variant with a generic associated type, and an `Err` variant with a different generic associated type.<br/>
 Well, we just reinvented [std::result::Result](https://doc.rust-lang.org/std/result/enum.Result.html).<br/>
 Like `Option`, there is no need to do `use std::result::Result`, and you can directly write `Ok` and `Err`.<br/>
 Every fallible operation in Rust returns a `Result`, without reinventing the wheel every time.
+
+### Matches
+
+`match` is a really powerful operator.<br/>
+A match is made of a subject and several patterns pointing to a code block.<br/>
+Each pattern can have an optional condition.<br/>
+A pattern can be a variable itself, even a `_` that means the variable is ignored.<br/>
+Patterns are evaluates in the order they are written.<br/>
+A match must always cover all possible values.
+```rust
+match subject {
+    pattern if condition => {},
+    patter => {},
+    variable @ pattern if condition => {},
+    variable @ pattern => {},
+    variable => {},
+}
+```
+
+You can, for example, match an integer against ranges
+```rust
+let a = 1;
+match a {
+    0 => println!("zero!"),
+    x if x < 0 => println!("negative"),
+    x @ 0..=9 if x % 2 == 0 => println!("even"),
+    0..=9 => println!("under 10"),
+    _ => println!("other"),
+}
+```
+
+You can destructure structs
+```rust
+struct Foo {
+    a: u8,
+    b: u8,
+}
+
+fn do_something(foo: Foo) {
+    match foo {
+        Foo { a: 1, b: 2 } => println!("got 1 and 2"),
+        Foo { a, .. } if a > 10 => println!("got a over 10"),// here we are ignoring b
+        _ => println!("uninteresting"),
+    }
+}
+```
+
+You can destructure enums
+```rust
+enum MultipleChoice {
+    None,
+    One(u8),
+    Multiple { parameter1: u8, parameter2: u8 },
+}
+
+fn do_something(foo: MultipleChoice) {
+    match foo {
+        MultipleChoice::One(1) => println!("got 1"),
+        MultipleChoice::Multiple { parameter1, .. } if parameter1 > 10 => println!("got parameter1 over 10"),
+        _ => println!("uninteresting"),
+    }
+}
+```
+
+### Try Operator
+
+The try operator `?` is really helpful to simplify your code without losing readability.<br/>
+It works on everything that implements the [Try](https://doc.rust-lang.org/std/ops/trait.Try.html) trait, automatically returning the a "bad" kind of value and unwrapping the "good" kind.<br/>
+Unfortunately the `Try` trait is still considered unstable, so you can't implement for your types, you can use it only on types for `std` that already implement it, for example `Result` and `Option`.<br/>
+Even with this restriction, the try operator is really helpful
+
+E.g. without try operator you would write something like that
+```rust
+fn do_something(a: u64) -> Result<u64, MyError> {
+    let b = match first_check(a) {
+        Ok(b) => b,
+        Err(e) => return Err(e.into()),
+    };
+    let c = match second_check(b) {
+        Ok(c) => c,
+        Err(e) => return Err(e.into()),
+    };
+    Ok(c)
+}
+```
+
+Using the try operator you can write the same like that
+```rust
+fn do_something(a: u64) -> Result<u64, MyError> {
+    let b = first_check(a)?;
+    let c = second_check(b)?;
+    Ok(c)
+}
+```

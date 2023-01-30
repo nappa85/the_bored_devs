@@ -101,6 +101,23 @@ Well, we just reinvented [std::result::Result](https://doc.rust-lang.org/std/res
 Like `Option`, there is no need to do `use std::result::Result`, and you can directly write `Ok` and `Err`.<br/>
 Every fallible operation in Rust returns a `Result`, without reinventing the wheel every time.
 
+Taking back previous example with Boolean enum, we can use [std::convert::TryFrom](https://doc.rust-lang.org/beta/std/convert/trait.TryFrom.html) trait to obtain a conversion method that returns the starting value on error
+
+```rust
+impl TryFrom<String> for Boolean {
+    type Error = String;
+    fn try_from(s: String) -> Result<Self, Self::Error> {
+        if s.eq_ignore_ascii_case("yes") {
+            Ok(Boolean::Yes)
+        } else if s.eq_ignore_ascii_case("no") {
+            Ok(Boolean::No)
+        } else {
+            Err(s)
+        }
+    }
+}
+```
+
 ### Matches
 
 `match` is a really powerful operator.<br/>
@@ -167,7 +184,7 @@ fn do_something(foo: MultipleChoice) {
 ### Try Operator
 
 The try operator `?` is really helpful to simplify your code without losing readability.<br/>
-It works on everything that implements the [Try](https://doc.rust-lang.org/std/ops/trait.Try.html) trait, automatically returning the a "bad" kind of value and unwrapping the "good" kind.<br/>
+It works on everything that implements the [std::ops::Try](https://doc.rust-lang.org/std/ops/trait.Try.html) trait, automatically returning the a "bad" kind of value and unwrapping the "good" kind.<br/>
 Unfortunately the `Try` trait is still considered unstable, so you can't implement for your types, you can use it only on types for `std` that already implement it, for example `Result` and `Option`.<br/>
 Even with this restriction, the try operator is really helpful
 

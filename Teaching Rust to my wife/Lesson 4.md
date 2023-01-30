@@ -20,7 +20,7 @@ enum Boolean {
 In this example the enum `Boolean` can only value `Boolean::Yes` or `Boolean::No`.
 
 _Isn't that a bool type?_<br/>
-Well, kind of. think about asking a user input, the user must only reply "yes" or "no", but it can be any other multiple choice question.<br/>
+Well, kind of. Think about asking a user input, the user must only reply "yes" or "no", but it can be any other multiple choice question.<br/>
 It doesn't makes sense keeping the string around after you validated it, once you converted it in an enum variant you can discard the original input and use a much more ergonomic system.
 
 ```rust

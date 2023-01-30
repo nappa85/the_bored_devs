@@ -3,7 +3,7 @@
 This aims to be a series of blog posts about my journey into teaching Rust to my wife.<br/>
 My wife knows nothing about development, so it's the perfect test subject for a guide starting from zero.
 
-## Lesson 3
+## Lesson 4
 
 ### Enums
 
